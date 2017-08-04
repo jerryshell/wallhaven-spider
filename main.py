@@ -20,7 +20,7 @@ def get_max_page(tag):
     home_page_url = tag_url_tmp.format(tag)
 
     response = requests.get(home_page_url)
-    soup = BeautifulSoup(response.text, 'lxml')
+    soup = BeautifulSoup(response.text, 'html.parser')
 
     h2_tag = soup.find_all('h2')[0]
 
@@ -45,7 +45,7 @@ def analysis_tag_home_page(tag, page):
 
     try:
         response = requests.get(home_page_url, timeout=TIMEOUT)
-        soup = BeautifulSoup(response.text, 'lxml')
+        soup = BeautifulSoup(response.text, 'html.parser')
 
         image_a_tags = soup.find_all('a', class_='preview')
         image_detail_urls = []
@@ -68,7 +68,7 @@ def analysis_image_detail_page(image_detail_urls):
     try:
         for image_detail_url in image_detail_urls:
             response = requests.get(image_detail_url, timeout=TIMEOUT)
-            soup = BeautifulSoup(response.text, 'lxml')
+            soup = BeautifulSoup(response.text, 'html.parser')
 
             img_tag = soup.find('img', id='wallpaper')
             image_url = 'https:{0}'.format(img_tag['src'])
@@ -170,7 +170,7 @@ INFO = '''
 Author:
 {0}
 GitHub: https://github.com/JerryLi-X
-Resources: https://alpha.wallhaven.cc 
+Resources: https://alpha.wallhaven.cc
 '''.format(JERRY_TEXT)
 
 # 退出字符画
