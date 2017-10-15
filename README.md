@@ -14,9 +14,7 @@ python3 ./main.py
 
 ## Windows 用户
 
-系统要求：64 位
-
-下载地址：打 exe 包会出现迷之错误，正在解决
+由于使用了 multiprocessing 模块，所以不支持 Windows
 
 # 第三方依赖库
 
