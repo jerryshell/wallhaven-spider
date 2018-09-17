@@ -20,4 +20,3 @@ python3 ./main.py
 
 1. requests
 2. bs4
-3. lxml
