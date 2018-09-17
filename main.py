@@ -10,13 +10,13 @@ TIMEOUT = 10
 
 
 def get_max_page(tag):
-    '''
+    """
     获取最大页数
     :param tag: 标签
     :return: max_page
-    '''
+    """
     max_page = 0
-    tag_url_tmp = 'https://alpha.wallhaven.cc/search?q=%22{0}%22'
+    tag_url_tmp = 'https://alpha.wallhaven.cc/search?q={0}'
     home_page_url = tag_url_tmp.format(tag)
 
     response = requests.get(home_page_url)
@@ -33,13 +33,13 @@ def get_max_page(tag):
 
 
 def analysis_tag_home_page(tag, page):
-    '''
+    """
     分析标签主页
     :param tag: 标签
     :param page: 页数
     :return: image_detail_urls
-    '''
-    tag_url_tmp = 'https://alpha.wallhaven.cc/search?q=%22{0}%22&page={1}'
+    """
+    tag_url_tmp = 'https://alpha.wallhaven.cc/search?q={0}&page={1}'
     home_page_url = tag_url_tmp.format(tag, page)
     image_detail_urls = []
 
@@ -59,11 +59,11 @@ def analysis_tag_home_page(tag, page):
 
 
 def analysis_image_detail_page(image_detail_urls):
-    '''
+    """
     分析页面详情页
     :param image_detail_urls: 页面详情页列表
     :return: image_urls
-    '''
+    """
     image_urls = []
     try:
         for image_detail_url in image_detail_urls:
@@ -72,7 +72,7 @@ def analysis_image_detail_page(image_detail_urls):
 
             img_tag = soup.find('img', id='wallpaper')
             image_url = 'https:{0}'.format(img_tag['src'])
-            print('获取 {0}'.format(image_url))
+            print('image_urls.append {0}'.format(image_url))
             image_urls.append(image_url)
 
     except requests.exceptions.ReadTimeout as e:
@@ -83,10 +83,10 @@ def analysis_image_detail_page(image_detail_urls):
 
 
 def download_image(image_url):
-    '''
+    """
     下载图片
     :param image_url: 图片 URL
-    '''
+    """
     try:
         response = requests.get(image_url, timeout=TIMEOUT)
         image_name = re.findall('wallhaven-\d+.*', image_url)[0]
@@ -101,11 +101,11 @@ def download_image(image_url):
 
 
 def downloader(processes, image_urls):
-    '''
+    """
     多线程下载器
     :param processes: 线程数量
     :param image_urls: 图片 URL 列表
-    '''
+    """
     pool = Pool(processes)
     pool.imap(download_image, image_urls)
     pool.close()
@@ -113,9 +113,9 @@ def downloader(processes, image_urls):
 
 
 def run():
-    '''
+    """
     爬虫入口
-    '''
+    """
     target_tag = input('请输入要采集的标签（默认：artwork）\n>>> ')
     if target_tag == '':
         target_tag = 'artwork'
@@ -157,29 +157,29 @@ def run():
 
 
 # Jerry 字符画
-JERRY_TEXT = '''
+JERRY_TEXT = """
  ▐▄▄▄▄▄▄ .▄▄▄  ▄▄▄   ▄· ▄▌
   ·██▀▄.▀·▀▄ █·▀▄ █·▐█▪██▌
 ▪▄ ██▐▀▀▪▄▐▀▀▄ ▐▀▀▄ ▐█▌▐█▪
 ▐▌▐█▌▐█▄▄▌▐█•█▌▐█•█▌ ▐█▀·.
  ▀▀▀• ▀▀▀ .▀  ▀.▀  ▀  ▀ • 
-'''
+"""
 
 # 程序信息
-INFO = '''
+INFO = """
 Author:
 {0}
 GitHub: https://github.com/JerryLi-X
 Resources: https://alpha.wallhaven.cc
-'''.format(JERRY_TEXT)
+""".format(JERRY_TEXT)
 
 # 退出字符画
-EXIT_TEXT = '''
+EXIT_TEXT = """
  ___       ___ 
 |__  \_/ |  |  
 |___ / \ |  |  
 
-'''
+"""
 
 if __name__ == '__main__':
     print(INFO)
