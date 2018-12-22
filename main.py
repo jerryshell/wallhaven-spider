@@ -169,7 +169,7 @@ JERRY_TEXT = """
 INFO = """
 Author:
 {0}
-GitHub: https://github.com/JerryLi-X
+GitHub: https://github.com/jerryshell
 Resources: https://alpha.wallhaven.cc
 """.format(JERRY_TEXT)
 
