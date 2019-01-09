@@ -1,6 +1,6 @@
-import spider_random.main
-import spider_tag
-import spider_traverse
+from spider_random import spider_random
+from spider_tag import spider_tag
+from spider_traverse import spider_traverse
 
 MENU = '''
 1)随机下载
@@ -11,7 +11,7 @@ q)退出
 
 user_input = input(MENU)
 if user_input == '1':
-    spider_random.main.run()
+    spider_random.run()
 elif user_input == '2':
     spider_traverse.run()
 elif user_input == '3':
