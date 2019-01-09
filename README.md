@@ -1,22 +1,14 @@
-# Spider Wallhaven TAG 特别版
+# Spider Wallhaven
 
-采集 [wallhaven.cc](https://alpha.wallhaven.cc) 上特定的 TAG 图片到程序目录下
+wallhaven.cc 爬虫
 
-# 安装和运行
+# 功能
 
-## Linux 用户
+* 随机下载
+* 遍历图片编号下载
+* 指定 TAG 下载
 
-```bash
-git clone https://github.com/JerryLi-X/spider_wallhaven_tag.git
-cd spider_wallhaven_tag
-python3 ./main.py
-```
+# 依赖
 
-## Windows 用户
-
-由于使用了 multiprocessing 模块，所以不支持 Windows
-
-# 第三方依赖库
-
-1. requests
-2. bs4
+* requests
+* bs4
