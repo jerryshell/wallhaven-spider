@@ -89,7 +89,7 @@ def download_image(image_url):
     """
     try:
         response = requests.get(image_url, timeout=TIMEOUT)
-        image_name = re.findall('wallhaven-\d+.*', image_url)[0]
+        image_name = re.findall(r'wallhaven-\d+.*', image_url)[0]
 
         with open(image_name, 'wb') as f:
             f.write(response.content)
@@ -156,32 +156,12 @@ def run():
         downloader(download_processes, image_urls)
 
 
-# Jerry 字符画
-JERRY_TEXT = """
- ▐▄▄▄▄▄▄ .▄▄▄  ▄▄▄   ▄· ▄▌
-  ·██▀▄.▀·▀▄ █·▀▄ █·▐█▪██▌
-▪▄ ██▐▀▀▪▄▐▀▀▄ ▐▀▀▄ ▐█▌▐█▪
-▐▌▐█▌▐█▄▄▌▐█•█▌▐█•█▌ ▐█▀·.
- ▀▀▀• ▀▀▀ .▀  ▀.▀  ▀  ▀ • 
-"""
-
 # 程序信息
 INFO = """
-Author:
-{0}
+Author: Jerry
 GitHub: https://github.com/jerryshell
-Resources: https://alpha.wallhaven.cc
-""".format(JERRY_TEXT)
-
-# 退出字符画
-EXIT_TEXT = """
- ___       ___ 
-|__  \_/ |  |  
-|___ / \ |  |  
-
 """
 
 if __name__ == '__main__':
     print(INFO)
     run()
-    print(EXIT_TEXT)
