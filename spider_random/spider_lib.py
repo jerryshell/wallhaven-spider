@@ -1,6 +1,6 @@
-'''
+"""
 爬虫工具函数
-'''
+"""
 
 import time
 
@@ -8,12 +8,12 @@ import requests
 
 
 def download_img(img_save_path, img_url):
-    '''
+    """
     下载指定URL的图片
     :param img_save_path: 图片保存路径
     :param img_url: 图片的 URL
     :return: 下载成功返回 True，否则返回 False
-    '''
+    """
     # os.system('aria2c ' + img_url)
     try:
         log_print('图片下载中，国外网站下载速度较慢，如果下载超时会自动放弃，请耐心等待 ...')

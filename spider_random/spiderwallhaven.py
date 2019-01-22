@@ -10,13 +10,14 @@ from spider_random.task import Task
 
 
 class SpiderWallhaven():
-    '''wallhaven 爬虫
+    """
+    wallhaven 爬虫
 
     属性：
         url: 首页 URL
         download_task_center: 下载任务中心
         home_page_image_links_set: 首页的图片链接集合
-    '''
+    """
 
     def __init__(self, home_page_url, download_task_center):
         self.home_page_url = home_page_url
@@ -24,10 +25,10 @@ class SpiderWallhaven():
         self.home_page_image_links_set = set()
 
     def analysis_home_page(self):
-        '''分析网站主页
-
+        """
+        分析网站主页
         :return: None
-        '''
+        """
         log_print('正在请求网站首页 ...')
         home_page_res = requests.get(self.home_page_url)
         home_page_res.encoding = 'utf-8'
@@ -44,10 +45,10 @@ class SpiderWallhaven():
         log_print('首页分析完成')
 
     def handle_home_page_image_links_set(self):
-        '''处理首页的图片链接集合
-
+        """
+        处理首页的图片链接集合
         :return:
-        '''
+        """
         count = 0
         for image_detail_link in self.home_page_image_links_set:
             count += 1
@@ -56,11 +57,11 @@ class SpiderWallhaven():
             time.sleep(2)
 
     def analysis_image_detail_page(self, image_detail_link):
-        '''分析图片详情页面，然后将图片信息封装成任务投送任务中心
-
+        """
+        分析图片详情页面，然后将图片信息封装成任务投送任务中心
         :param image_detail_link: 图片详情页面链接
         :return: None
-        '''
+        """
         try:
             log_print('正在请求图片详情页面 ... %s' % image_detail_link)
             image_detail_page_res = requests.get(image_detail_link, timeout=5)
@@ -89,18 +90,18 @@ class SpiderWallhaven():
             log_print('!! 网页错误，该图片已跳过 !!')
 
     def page_analyze_complete(self):
-        '''页面分析完成，开始驱动下载器
-
+        """
+        页面分析完成，开始驱动下载器
         :return: None
-        '''
+        """
         self.download_task_center.drive_downloader()
         log_print('页面分析完成 --- 开始驱动下载器')
 
     def run(self):
-        '''爬虫入口
-
+        """
+        爬虫入口
         :return: None
-        '''
+        """
         self.analysis_home_page()
         self.handle_home_page_image_links_set()
         self.page_analyze_complete()
