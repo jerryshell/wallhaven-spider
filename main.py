@@ -9,7 +9,8 @@ MENU = '''
 q)退出
 '''
 
-user_input = input(MENU)
+print(MENU)
+user_input = input('>>> ')
 if user_input == '1':
     spider_random.run()
 elif user_input == '2':
