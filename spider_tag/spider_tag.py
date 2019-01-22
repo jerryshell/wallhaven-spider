@@ -1,3 +1,6 @@
+"""
+通过指定 TAG 下载图片
+"""
 import re
 from multiprocessing import Pool
 
@@ -156,12 +159,5 @@ def run():
         downloader(download_processes, image_urls)
 
 
-# 程序信息
-INFO = """
-Author: Jerry
-GitHub: https://github.com/jerryshell
-"""
-
 if __name__ == '__main__':
-    print(INFO)
     run()
