@@ -2,7 +2,7 @@ from spider_random.download_task_center import DownloadTaskCenter
 
 
 def run():
-    home_page_url = 'https://alpha.wallhaven.cc/random'
+    home_page_url = 'https://wallhaven.cc/random'
     try:
         get_home_page_count = int(input('请求 1 次首页可获得 24 张图片，你要请求多少次（默认：1）\n>>> '))
         if get_home_page_count < 1:

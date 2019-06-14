@@ -1,4 +1,3 @@
-import re
 import time
 
 import requests
@@ -34,14 +33,12 @@ class SpiderWallhaven():
         home_page_res.encoding = 'utf-8'
         log_print('正在分析网站首页 ...')
         home_page_soup = BeautifulSoup(home_page_res.text, 'html.parser')
-        home_page_image_tags = home_page_soup.select('.thumb-listing-page a')
+        home_page_image_tags = home_page_soup.select('#thumbs a.preview')
 
         log_print('正在将首页的图片标签添加到集合 ...')
         for i in home_page_image_tags:
             img_link = i.get('href')
-            re_result = re.match(r'https.*/\d+', img_link)
-            if re_result:
-                self.home_page_image_links_set.add(re_result.group().rstrip('/'))
+            self.home_page_image_links_set.add(img_link)
         log_print('首页分析完成')
 
     def handle_home_page_image_links_set(self):
@@ -69,8 +66,8 @@ class SpiderWallhaven():
             log_print('正在分析图片详情页面 ...')
             image_detail_page_soup = BeautifulSoup(image_detail_page_res.text, 'html.parser')
             image_tag = image_detail_page_soup.select('#wallpaper')
-            image_name = image_tag[0]['src'].split('/')[-1]
-            image_url = 'https:' + image_tag[0]['src'].strip()
+            image_url = image_tag[0]['src']
+            image_name = image_url.split('/')[-1]
             log_print('图片详情页面分析完成\nImage:\t%s\nURL:\t%s' % (image_name, image_url))
             new_task = Task(image_name, image_url)
             self.download_task_center.add_task(new_task)
