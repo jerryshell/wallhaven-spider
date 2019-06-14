@@ -1,17 +1,17 @@
 # Spider Wallhaven
 
-wallhaven.cc 爬虫
+wallhaven.cc 采集工具
 
 ## 功能
 
 * 随机下载
-* 遍历图片编号下载
 * 指定 TAG 下载
+* ~~遍历图片编号下载~~（由于网站的更新，遍历编号的方法已经不再有效）
 
 ## 运行
 
 ```bash
-python3 ./main.py
+python3 main.py
 ```
 
 ## 依赖
