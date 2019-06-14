@@ -1,7 +1,6 @@
 """
 通过指定 TAG 下载图片
 """
-import re
 from multiprocessing import Pool
 
 import requests
@@ -18,21 +17,15 @@ def get_max_page(tag):
     :param tag: 标签
     :return: max_page
     """
-    max_page = 0
-    tag_url_tmp = 'https://alpha.wallhaven.cc/search?q={0}'
+    tag_url_tmp = 'https://wallhaven.cc/search?q={0}'
     home_page_url = tag_url_tmp.format(tag)
-
     response = requests.get(home_page_url)
     soup = BeautifulSoup(response.text, 'html.parser')
-
-    h2_tag = soup.find_all('h2')[0]
-
-    try:
-        max_page = int(re.findall('\d+', h2_tag.text)[-1])
-    except IndexError:
+    title_elem = soup.select_one('#main > header > h1')
+    if title_elem is None:
         print('这个标签可能不存在 {0}'.format(home_page_url))
-    finally:
-        return max_page
+        return -1
+    return int(title_elem.text.split(' ')[0].replace(',', ''))
 
 
 def analysis_tag_home_page(tag, page):
@@ -42,7 +35,7 @@ def analysis_tag_home_page(tag, page):
     :param page: 页数
     :return: image_detail_urls
     """
-    tag_url_tmp = 'https://alpha.wallhaven.cc/search?q={0}&page={1}'
+    tag_url_tmp = 'https://wallhaven.cc/search?q={0}&page={1}'
     home_page_url = tag_url_tmp.format(tag, page)
     image_detail_urls = []
 
@@ -74,7 +67,7 @@ def analysis_image_detail_page(image_detail_urls):
             soup = BeautifulSoup(response.text, 'html.parser')
 
             img_tag = soup.find('img', id='wallpaper')
-            image_url = 'https:{0}'.format(img_tag['src'])
+            image_url = img_tag['src']
             print('image_urls.append {0}'.format(image_url))
             image_urls.append(image_url)
 
@@ -85,14 +78,15 @@ def analysis_image_detail_page(image_detail_urls):
         return image_urls
 
 
-def download_image(image_url):
+def download_image(image_url: str):
     """
     下载图片
     :param image_url: 图片 URL
     """
     try:
         response = requests.get(image_url, timeout=TIMEOUT)
-        image_name = re.findall(r'wallhaven-\d+.*', image_url)[0]
+        # image_name = re.findall(r'wallhaven-\d+.*', image_url)[0]
+        image_name = image_url.split('/')[-1]
 
         with open(image_name, 'wb') as f:
             f.write(response.content)
