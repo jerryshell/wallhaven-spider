@@ -1,4 +1,2 @@
-.comments/
-.idea/
-__pycache__/
-*.DS_Store
+.idea
+images
