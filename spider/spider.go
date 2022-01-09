@@ -3,7 +3,7 @@ package spider
 import (
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
-	"github.com/jerryshell/wallhaven-spider/download"
+	"github.com/jerryshell/wallhaven-spider/downloader"
 	"log"
 	"net/http"
 	"time"
@@ -15,8 +15,7 @@ func Get24Image() {
 
 	imageUrlList := getImageUrlList()
 
-	downloadManager := download.NewManager(imageUrlList)
-	downloadManager.Start()
+	downloader.New(imageUrlList).Start()
 }
 
 // Get24NImage 获取 24*n 张图片
