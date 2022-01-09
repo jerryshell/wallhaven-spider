@@ -1,5 +1,6 @@
 .idea
 images
-wallhaven-spider-darwin-amd64
-wallhaven-spider-linux-amd64
-wallhaven-spider-windows-amd64
+wallhaven-spider-amd64-darwin
+wallhaven-spider-amd64-linux
+wallhaven-spider-amd64-windows
+wallhaven-spider-arm-linux
